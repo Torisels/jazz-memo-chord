@@ -1,6 +1,9 @@
-# AI Rules for {{project-name}}
+# AI Rules for Jazz Memo Chord
 
-{{project-description}}
+This is the set of rules and guidelines to follow when contributing to the `jazz-memo-chord` project.
+This project uses Astro as the main framework with React for interactive components, TypeScript for type safety, Tailwind CSS for styling, and Supabase for backend services.
+It's purpose it's to help musicians learn and practice jazz chord theory. From the basic triads to advanced chord substitutions.
+Voicings, dictants, chord scales and more.
 
 ## Tech Stack
 
@@ -81,7 +84,7 @@ When modifying the directory structure, always update this section.
 - Leverage View Transitions API for smooth page transitions (use ClientRouter)
 - Use content collections with type safety for blog posts, documentation, etc.
 - Leverage Server Endpoints for API routes
-- Use POST, GET  - uppercase format for endpoint handlers
+- Use POST, GET - uppercase format for endpoint handlers
 - Use `export const prerender = false` for API routes
 - Use zod for input validation in API routes
 - Extract logic into services in `src/lib/services`
