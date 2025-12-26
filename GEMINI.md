@@ -5,7 +5,13 @@ This document serves as the primary reference for AI agents (like Gemini) workin
 ## 1. Project Overview & Tech Stack
 
 **Project Name:** jazz-memo-chord
-**Description:** A modern web application for managing jazz chord progressions and memos, built with a performance-first "islands" architecture.
+**Description:** A modern web application for musicians to learn jazz chords through interactive memos.
+It provides a visual and auditory learning experience, leveraging cutting-edge web technologies.
+User can excersice jazz chords using dictation and spaced repetition techniques.
+User can see the notes and has to name the chord.
+User can hear the chord and has to name it.
+User shall be able to choose different chord voicings.
+
 
 ### Tech Stack
 
