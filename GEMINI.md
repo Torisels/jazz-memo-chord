@@ -12,7 +12,6 @@ User can see the notes and has to name the chord.
 User can hear the chord and has to name it.
 User shall be able to choose different chord voicings.
 
-
 ### Tech Stack
 
 - **Meta-framework:** [Astro 5](https://astro.build/) (Hybrid SSR mode)

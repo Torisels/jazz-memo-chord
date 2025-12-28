@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **jazz-memo-chord** is a web application for musicians to learn and practice jazz chord theory through interactive exercises. Users can practice chord recognition using visual (sheet notation) and auditory (listening) methods, exploring various voicings, dictation exercises, chord scales, and substitutions.
 
 **Tech Stack:**
+
 - Astro 5 (Server rendering)
 - React 19 (Interactive islands)
 - TypeScript 5
@@ -35,24 +36,25 @@ bun run check        # Run Astro type checking
 The codebase follows a strict directory organization:
 
 - `./src/` - Source code root
-  - `pages/` - Astro routes (`.astro` files)
-  - `pages/api/` - Server endpoints
-  - `layouts/` - Astro layouts
-  - `middleware/index.ts` - Request/response middleware
-  - `components/` - UI components (Astro static / React interactive)
-  - `components/ui/` - Shadcn/ui components
-  - `lib/` - Services and utilities
-  - `lib/services/` - Business logic and external integrations
-  - `lib/utils.ts` - Helper functions
-  - `db/` - Supabase client and generated types
-  - `types.ts` - Shared types and entities
-  - `assets/` - Internal static assets
+    - `pages/` - Astro routes (`.astro` files)
+    - `pages/api/` - Server endpoints
+    - `layouts/` - Astro layouts
+    - `middleware/index.ts` - Request/response middleware
+    - `components/` - UI components (Astro static / React interactive)
+    - `components/ui/` - Shadcn/ui components
+    - `lib/` - Services and utilities
+    - `lib/services/` - Business logic and external integrations
+    - `lib/utils.ts` - Helper functions
+    - `db/` - Supabase client and generated types
+    - `types.ts` - Shared types and entities
+    - `assets/` - Internal static assets
 - `./public/` - Public static assets
 - `./supabase/migrations/` - Database migrations (UTC timestamp naming: `YYYYMMDDHHmmss_description.sql`)
 
 ## Architecture & Key Patterns
 
 ### Astro Integration
+
 - **Server-first rendering:** Prefer server-side data fetching in `.astro` files
 - **Hybrid rendering:** Use `export const prerender = false` for dynamic API routes
 - **Interactivity:** Only use React (`.tsx`) for interactive components; use `client:load` or `client:visible` directives sparingly
@@ -60,18 +62,21 @@ The codebase follows a strict directory organization:
 - **Endpoints:** Use uppercase `POST`, `GET` for handler names; validate inputs with Zod
 
 ### Backend & Database
+
 - **Supabase client:** Access via `context.locals.supabase` in Astro routes (injected via middleware); avoid direct imports when possible
 - **Database types:** Use the `Database` type from `src/db/database.types.ts`
 - **Row-Level Security (RLS):** Mandatory for every table; create granular policies per role and action
 - **API routes:** Use Zod schemas for input validation and error handling with proper status codes
 
 ### React Components
+
 - **No Next.js directives:** Never use `"use client"` (Astro handles hydration)
 - **Functional components:** Use hooks; extract complex logic into `src/components/hooks/`
 - **Performance:** Apply `React.memo()`, `useCallback()`, `useMemo()` for expensive renders; use new hooks like `useOptimistic` and `useTransition`
 - **Type safety:** Ensure all props are typed; avoid `any`
 
 ### Styling
+
 - **Tailwind 4:** Use `@layer` for organization, `theme()` function for design tokens, responsive variants (`sm:`, `md:`, etc.), and state variants (`hover:`, `focus-visible:`, etc.)
 - **Shadcn UI:** Components live in `src/components/ui/`; install with `bunx shadcn@latest add [name]`
 - **Dark mode:** Implement using Tailwind's `dark:` variant
