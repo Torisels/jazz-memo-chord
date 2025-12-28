@@ -88,7 +88,7 @@ Always adhere to this directory structure when introducing changes:
 ### Styling & Shadcn UI
 
 - **Tailwind 4:** Use `@layer` for organization and `theme()` in CSS.
-- **Shadcn:** Components reside in `src/components/ui`. Use `npx shadcn@latest add [name]` to install new ones.
+- **Shadcn:** Components reside in `src/components/ui`. Use `bunx shadcn@latest add [name]` to install new ones.
 - **Accessibility:** Strictly follow ARIA best practices (landmarks, labels, roles).
 
 ---
