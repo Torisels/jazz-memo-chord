@@ -1,74 +1,74 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  # Main application
-  app:
-    build:
-      context: ..
-      dockerfile: devops/Dockerfile
-    container_name: jazz-memo-chord-app
-    ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=production
-      - HOST=0.0.0.0
-      - PORT=3000
-      # Supabase environment variables (override with .env file)
-      - PUBLIC_SUPABASE_URL=${PUBLIC_SUPABASE_URL}
-      - PUBLIC_SUPABASE_ANON_KEY=${PUBLIC_SUPABASE_ANON_KEY}
-      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - jazz-memo-chord-network
-    restart: unless-stopped
+    # Main application
+    app:
+        build:
+            context: ..
+            dockerfile: devops/Dockerfile
+        container_name: jazz-memo-chord-app
+        ports:
+            - "3000:3000"
+        environment:
+            - NODE_ENV=production
+            - HOST=0.0.0.0
+            - PORT=3000
+            # Supabase environment variables (override with .env file)
+            - PUBLIC_SUPABASE_URL=${PUBLIC_SUPABASE_URL}
+            - PUBLIC_SUPABASE_ANON_KEY=${PUBLIC_SUPABASE_ANON_KEY}
+            - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+            - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
+        depends_on:
+            postgres:
+                condition: service_healthy
+        networks:
+            - jazz-memo-chord-network
+        restart: unless-stopped
 
-  # PostgreSQL database (Supabase-compatible)
-  postgres:
-    image: postgres:15-alpine
-    container_name: jazz-memo-chord-db
-    ports:
-      - '5432:5432'
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ../supabase/migrations:/docker-entrypoint-initdb.d:ro
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres']
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - jazz-memo-chord-network
-    restart: unless-stopped
+    # PostgreSQL database (Supabase-compatible)
+    postgres:
+        image: postgres:15-alpine
+        container_name: jazz-memo-chord-db
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=postgres
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+            - ../supabase/migrations:/docker-entrypoint-initdb.d:ro
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            - jazz-memo-chord-network
+        restart: unless-stopped
 
-  # Supabase Studio (optional - for local development)
-  studio:
-    image: supabase/studio:latest
-    container_name: jazz-memo-chord-studio
-    ports:
-      - '3001:3000'
-    environment:
-      - SUPABASE_URL=http://localhost:8000
-      - STUDIO_PG_META_URL=http://postgres:5432
-      - POSTGRES_PASSWORD=postgres
-    depends_on:
-      - postgres
-    networks:
-      - jazz-memo-chord-network
-    restart: unless-stopped
-    profiles:
-      - development
+    # Supabase Studio (optional - for local development)
+    studio:
+        image: supabase/studio:latest
+        container_name: jazz-memo-chord-studio
+        ports:
+            - "3001:3000"
+        environment:
+            - SUPABASE_URL=http://localhost:8000
+            - STUDIO_PG_META_URL=http://postgres:5432
+            - POSTGRES_PASSWORD=postgres
+        depends_on:
+            - postgres
+        networks:
+            - jazz-memo-chord-network
+        restart: unless-stopped
+        profiles:
+            - development
 
 volumes:
-  postgres_data:
-    driver: local
+    postgres_data:
+        driver: local
 
 networks:
-  jazz-memo-chord-network:
-    driver: bridge
+    jazz-memo-chord-network:
+        driver: bridge
