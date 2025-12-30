@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "10x-astro-starter",
+      "name": "jazz-memo-chord",
       "dependencies": {
         "@astrojs/check": "^0.9.6",
         "@astrojs/node": "^9.5.1",
